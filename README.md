@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="assets/images/1759502435938.jpg" width="70%">
-  <img src="assets/images/1759502436744.jpg" width="40%">
-  <img src="assets/images/1759502436982.jpg" width="40%">
+  <img src="assets/images/Poster.png" width="100%">
+  <!-- <img src="assets/images/1759502436744.jpg" width="40%">
+  <img src="assets/images/1759502436982.jpg" width="40%"> -->
 </p>
 
 <p align="center">
