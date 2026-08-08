@@ -14,7 +14,7 @@
 ## Methodology Workflow
 
 <p align="center">
-  <img src="Figure/methodology_flowchart.jpg" alt="Methodology workflow of Phase 3" width="900">
+  <img src="Figure/methodology_flowchart.png.jpg" alt="Methodology workflow of Phase 3" width="900">
 </p>
 
 ---
