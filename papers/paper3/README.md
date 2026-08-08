@@ -11,7 +11,13 @@
 - **DOI:** [https://doi.org/10.1016/j.srs.2026.100481](https://doi.org/10.1016/j.srs.2026.100481)
 
 ---
+## Methodology Workflow
 
+<p align="center">
+  <img src="Figure/methodology_flowchart.jpg" alt="Methodology workflow of Phase 3" width="900">
+</p>
+
+---
 ## Abstract
 
 This study develops a reproducible multi-sensor machine learning-based framework for mapping forest structure, biomass-related patterns, carbon stocks indicators, and ecological vulnerability in tropical forests of the
