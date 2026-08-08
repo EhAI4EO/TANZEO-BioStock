@@ -37,7 +37,7 @@ Each paper directory contains the corresponding source code, configuration files
   
 - **Phase 2:**  [Forest Canopy Height Mapping in Tanzanian Tropical Rainforests Using Multimodal Remote Sensing Data and Machine Learning](papers/paper2)
 
-
+- **Phase 3:** [Multi-source Remote Sensing of Tropical Montane Forest Structure for Degradation Risk and Restoration Prioritization](papers/paper3)
 ---
 
 ## 👥 Project Team 
