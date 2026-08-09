@@ -1,0 +1,40 @@
+# =============================================================================
+# TANZEO-BioStock, Phase 3 (paper3) -- Conda environment
+#
+# Recommended installation route for the geospatial stack (GDAL, Rasterio,
+# Fiona, GeoPandas, Shapely, PyProj), which is more reliably resolved via
+# conda-forge than pip on most platforms.
+#
+# Create with:
+#   conda env create -f environment.yml
+#   conda activate tanzeo-paper3
+# =============================================================================
+name: tanzeo-paper3
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy>=1.24
+  - pandas>=2.0
+  - scikit-learn>=1.3
+  - joblib>=1.3
+  - pyyaml>=6.0
+  - tqdm>=4.65
+  - gdal>=3.6
+  - rasterio>=1.3
+  - geopandas>=0.13
+  - shapely>=2.0
+  - pyproj>=3.5
+  - fiona>=1.9
+  - matplotlib>=3.7
+  - seaborn>=0.12
+  - openpyxl>=3.1
+  - pytest>=7.4
+  # Optional, only required for baseline model comparison (src/baseline_models.py)
+  # and SHAP interpretation plots (src/evaluation.py) -- uncomment if needed:
+  # - catboost
+  # - tensorflow
+  # - shap
+  - pip
+  - pip:
+      - joblib>=1.3

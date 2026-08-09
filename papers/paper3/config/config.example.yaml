@@ -1,0 +1,122 @@
+# =============================================================================
+# TANZEO-BioStock, Phase 3 (paper3) -- configuration
+#
+# Copy this file to config/config.yaml and edit paths/values for your
+# environment. config/config.yaml is git-ignored and must never contain
+# personal machine paths that get committed.
+#
+# This file provides the default parameters used by the packaged workflow.
+# Review and adjust data paths, sampling geometry, raster properties, and
+# model settings for your own datasets before execution.
+# =============================================================================
+
+# --- Global / shared settings ------------------------------------------------
+crs_epsg: 21037          # Arc 1960 / UTM zone 37S (West Usambara study area)
+pixel_size_m: 10.0        # Predictor raster resolution
+random_seed: 42
+n_workers: 4               # Reserved for future parallelized raster I/O
+overwrite_outputs: false   # If true, pipeline stages silently overwrite existing outputs
+
+# --- Input / output paths ----------------------------------------------------
+# NOTE: none of the large raster/vector datasets are distributed in this
+# repository (see README.md, "Input Data"). Populate these paths locally.
+paths:
+  # --- FCH inputs ---
+  icesat2_points: "data/raw/FCH_Merged_2024.gpkg"
+  sentinel2: "data/raw/Sentinel2_2024-M10-11_Reprojected_Resampled.tif"
+  sentinel1: "data/raw/S1_Reprojected_Resample11.tif"
+  dem: "data/raw/SRTM_DEM_Reprojected_Resampl.tif"
+
+  # --- FCH intermediate / output artifacts ---
+  fch_predictor_stack_20band: "outputs/fch/Predictor_Stack_20band.tif"
+  fch_prediction_stack: "outputs/fch/Predictor_Stack_Selected.tif"
+  fch_model: "outputs/fch/fch_random_forest.joblib"
+  fch_selector: "outputs/fch/fch_selectkbest.joblib"
+  fch_selected_band_indices: "outputs/fch/fch_selected_band_indices.npy"
+  fch_output_map: "outputs/fch/FCH_Map_10m.tif"
+
+  # --- AGB inputs ---
+  agb_field_points: "data/raw/AGB_700_350.gpkg"
+  # 20-band stack over the AGB study extent (same band layout/order as FCH;
+  # build with the same Sentinel-1/2/DEM sources, cropped to the AGB extent).
+  agb_predictor_stack_20band: "data/raw/Stacked_Image_20_900_225.tif"
+
+  # --- AGB output artifacts ---
+  agb_model: "outputs/agb/agb_random_forest.joblib"
+  agb_selector: "outputs/agb/agb_selectkbest.joblib"
+  agb_selected_band_indices: "outputs/agb/agb_selected_band_indices.npy"
+  agb_output_map: "outputs/agb/AGB_Map_10m.tif"
+
+  # --- AGC inputs ---
+  agc_field_excel: "data/raw/AGC.xlsx"
+  agc_boundary_shapefile: "data/raw/WUSA_700_350.shp"   # set to null/empty to skip clipping
+  agc_predictor_stack_20band: "data/raw/Stacked_Image_20_900_225.tif"
+
+  # --- AGC output artifacts ---
+  agc_model: "outputs/agc/agc_random_forest.joblib"
+  agc_selector: "outputs/agc/agc_selectkbest.joblib"
+  agc_selected_band_indices: "outputs/agc/agc_selected_band_indices.npy"
+  agc_output_map: "outputs/agc/AGC_Map_10m.tif"
+
+# --- FCH stage-specific parameters -------------------------------------------
+fch:
+  target_column: "h_canopy"
+  test_size: 0.2
+  # ATL08 footprint buffer (approximates the along-track segment footprint)
+  footprint_width_m: 100
+  footprint_height_m: 17
+  orientation_offset_deg: 5.5
+  descending_track_ids: [418, 860]
+  ascending_track_ids: [730]
+  # Patch extraction (full-patch mean)
+  patch_width_px: 3
+  patch_height_px: 11
+  center_mode: 0            # 0 = full-patch mean
+  min_valid_ratio: 0.5
+  select_k_best: 16          # out of 20 predictor bands
+
+# --- AGB stage-specific parameters -------------------------------------------
+agb:
+  target_column: "AGB"
+  test_size: 0.3
+  plot_width_m: 225
+  plot_height_m: 900
+  patch_width_px: 22
+  patch_height_px: 90
+  center_mode: 25            # mean over a centered 5x5-pixel window
+  min_valid_ratio: 0.5
+  # Optional alternative plot geometries, for reference / sensitivity
+  # analysis. Not used by default.
+  alternative_plot_geometries_m:
+    - {width: 350, height: 700}
+    - {width: 700, height: 350}
+
+# --- AGC stage-specific parameters -------------------------------------------
+agc:
+  target_column: "AGC"
+  test_size: 0.3
+  plot_width_m: 225
+  plot_height_m: 900
+  patch_width_px: 22
+  patch_height_px: 90
+  center_mode: 25
+  min_valid_ratio: 0.5
+  alternative_plot_geometries_m:
+    - {width: 350, height: 700}
+
+# --- Baseline model comparison (optional; not run by default) ---------------
+baselines:
+  include_catboost: true
+  include_cnn: true
+  svr:
+    kernel: "rbf"
+    C: 1.0
+    epsilon: 0.1
+  catboost:
+    iterations: 300
+    learning_rate: 0.1
+    depth: 6
+  cnn:
+    epochs: 100
+    batch_size: 32
+    learning_rate: 0.0005

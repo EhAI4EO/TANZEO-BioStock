@@ -1,0 +1,46 @@
+# =============================================================================
+# TANZEO-BioStock, Phase 3 (paper3) -- pip requirements
+#
+# Geospatial packages (GDAL, Rasterio, Fiona, GeoPandas, Shapely, PyProj)
+# have compiled binary dependencies that are frequently easier to install
+# via Conda than pip, especially on Windows. If you hit build errors with
+# `pip install -r requirements.txt`, use environment.yml instead
+# (see README.md, "Installation").
+#
+# Versions below are lower bounds tested against this codebase; newer
+# minor/patch versions are generally compatible.
+# =============================================================================
+
+# --- Core scientific stack ---
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+joblib>=1.3
+PyYAML>=6.0
+tqdm>=4.65
+
+# --- Geospatial (prefer Conda for these -- see environment.yml) ---
+rasterio>=1.3
+geopandas>=0.13
+shapely>=2.0
+pyproj>=3.5
+fiona>=1.9
+
+# --- Plotting ---
+matplotlib>=3.7
+seaborn>=0.12
+
+# --- Field-data I/O ---
+openpyxl>=3.1   # required by pandas.read_excel for .xlsx files
+
+# --- Testing ---
+pytest>=7.4
+
+# =============================================================================
+# Optional dependencies (baseline model comparison only -- NOT required for
+# the production FCH/AGB/AGC pipeline). Install individually as needed:
+#
+#   pip install catboost      # CatBoost baseline in src/baseline_models.py
+#   pip install tensorflow    # 1D-CNN baseline in src/baseline_models.py
+#   pip install shap          # SHAP interpretation plots in src/evaluation.py
+# =============================================================================
