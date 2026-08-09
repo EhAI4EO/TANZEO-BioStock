@@ -5,7 +5,7 @@
 ### Reference
 - **Title:** Forest Canopy Height Mapping in Tanzanian Tropical Rainforests Using Multimodal Remote Sensing Data and Machine Learning
 - **Authors:** Soheil Zaghian; Seyed Ehsan Khankeshizadeh; Sadegh Jamali; Torbern Tagesson; Ernest William Mauya; Ali Mohammadzadeh; Filbert Francis
-- **Status:** Accepted
+- **Status:** Published
 - **Journal/Conference:** 2026 ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences (ISPRS Annals) 
 - **DOI:** [ISPRS Conference 2026](https://doi.org/10.5194/isprs-annals-XI-3-2026-835-2026)
 
